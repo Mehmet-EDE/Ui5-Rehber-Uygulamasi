@@ -1,0 +1,162 @@
+
+<mvc:View
+	controllerName="SapUI5Tutorial.Application.LoginPage.controller.LoginPage"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:u="sap.ui.unified"
+	xmlns:custom="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
+	<SplitContainer
+		id="SplitContDemo"
+		initialDetail="detail"
+		initialMaster="master">
+		<detailPages>
+			<Page
+				id="detail"
+				title="Detaylar"
+				backgroundDesign= "Solid"
+				showNavButton="{= !${device>/system/desktop} }"
+				navButtonText="Back"
+				navButtonPress=".onPressDetailBack"
+				class="sapUiStdPage">
+                	<Label text="İsim:" labelFor="nameInput" />
+                <Input
+				value="{/kisi/ad}"
+			id="nameInput"
+			class="sapUiSmallMarginBottom"
+			placeholder="Ad giriniz."
+			 />
+            	<Label text="Soyisim:" labelFor="surnameInput" />
+            <Input
+			value="{/kisi/soyad}"
+			id="surnameInput"
+			class="sapUiSmallMarginBottom"
+			placeholder="Soyadını giriniz."
+			 />
+            <Label text="Telefon numarası:" labelFor="phoneInput" />
+            <Input
+			value="{/kisi/telefon}"
+			id="phoneInput"
+			class="sapUiSmallMarginBottom"
+			placeholder="Telefon numarası giriniz."
+			 />
+			 <u:FileUploader
+			 value="{/kisi/fotograf}"
+			id="fileUploader"
+			name="myFileUpload"
+			uploadUrl="upload/"
+			change="onChange"
+			tooltip="Upload your file to the local server"
+			uploadComplete="handleUploadComplete"/>
+            <Button type="Accept"
+						text="Kaydet"
+						press="onPress"
+						id="saveBtn"
+						ariaDescribedBy="acceptButtonDescription genericButtonDescription">
+					<layoutData>
+						<FlexItemData growFactor="1" />
+					</layoutData>
+				</Button>
+				<Button type="Reject"
+						text="Düzenle"
+						press="onEdit"
+						id="editBtn"
+						ariaDescribedBy="acceptButtonDescription genericButtonDescription">
+					<layoutData>
+						<FlexItemData growFactor="1" />
+					</layoutData>
+				</Button>
+				<Button type="Reject"
+						text="Sil"
+						press="onDelete"
+						id="deleteBtn"
+						ariaDescribedBy="acceptButtonDescription genericButtonDescription">
+					<layoutData>
+						<FlexItemData growFactor="1" />
+					</layoutData>
+				</Button>
+			</Page>
+			<Page
+				id="detailDetail"
+				title="Detail Detail"
+				backgroundDesign= "Solid"
+				class="sapUiStdPage"
+				showNavButton="true"
+				navButtonText="Back"
+				navButtonPress=".onPressDetailBack">
+				<VBox class="sapUiSmallMargin">
+					<Label text="This is Detail Page 2" />
+					<Text text="Here you could change the Split Application mode. After the mode change, resize the browser window to see the difference in the master form behaviour." />
+					<RadioButtonGroup
+						columns="1"
+						width="500px"
+						class="sapUiMediumMarginBottom"
+						select=".onPressModeBtn">
+						<buttons>
+							<RadioButton id="RB1-1" text="show/hide" selected="true" custom:splitAppMode="ShowHideMode" />
+							<RadioButton id="RB1-2" text="stretch/compress" custom:splitAppMode="StretchCompressMode" />
+							<RadioButton id="RB1-3" text="hide" custom:splitAppMode="HideMode" />
+							<RadioButton id="RB1-4" text="popover" custom:splitAppMode="PopoverMode" />
+						</buttons>
+					</RadioButtonGroup>
+				</VBox>
+			</Page>
+			<Page
+				id="detail2"
+				title="Detail 3 Page"
+				backgroundDesign= "Solid"
+				class="sapUiStdPage"
+				showNavButton="true"
+				navButtonText="Back"
+				navButtonPress=".onPressDetailBack">
+				<Label text="This is Detail Page 3" />
+				<Input/>
+				<Label text="Label 2" />
+				<Input/>
+				<Label text="Label 3" />
+				<Input/>
+				<Label text="Label 4" />
+				<Input/>
+				<Label text="Label 5" />
+				<Input/>
+			</Page>
+		</detailPages>
+		<masterPages>
+			<Page
+				id="master"
+				title="Kişiler"
+				backgroundDesign= "List"
+				icon="sap-icon://action"
+				class="sapUiStdPage">
+                <List
+				id="deneme"
+                mode="SingleSelectMaster"
+                select="onSelect"
+                    items="{/kisiler}">
+                    <StandardListItem
+					id="shortList"
+                        title="{ad} {soyad} "
+                        description="{telefon}"
+                        icon="{fotoğraf}"
+                        iconDensityAware="false"
+                        iconInset="false" 
+                        press="onPresslist"/>
+                </List>
+			</Page>
+			<Page
+				id="master2"
+				title="Master 2"
+				backgroundDesign= "List"
+				icon="sap-icon://action"
+				class="sapUiStdPage"
+				showNavButton="true"
+				navButtonPress=".onPressMasterBack">
+				<List itemPress=".onListItemPress">
+					<StandardListItem title="To Detail 1" type="Active" custom:to="detail" />
+					<StandardListItem title="To Detail 2" type="Active" custom:to="detailDetail" />
+					<StandardListItem title="To Detail 3" type="Active" custom:to="detail2" />
+				</List>
+			</Page>
+		</masterPages>
+	</SplitContainer>
+</mvc:View>
+   
